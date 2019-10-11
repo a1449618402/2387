@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	
+>
+	</head>
+	<body bgcolor="#000000" style="overflow: hidden;">
+		<script src="jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<!--1.雪花的开始位置 left 随机数 top 为了从上到下的自然落下效果 top值给负数
+            2.雪花的结束位置 left 随机数 top window窗口的位置
+			3.animate(结束位置,动画时间,动画完成后的回调函数)
+			4.因为每次出现一个雪花就会创建一个新的节点,因为反复出现,就会有累计很多节点-->
+		<!--导致文件越来越大,所以 每当一个新的节点执行完动画后,应该移出这个节点-->
+		<script type="text/javascript">
+			//设置的内容1.雪花的颜色2.雪花最小值是5px3.雪花最大值是50px 4.动画时间
+			//5.新建节点
+			var xuecolor = "pink";
+			var xuemin = 5;
+			var xuemax = 50;
+			var xue = $('<div></div>').css('position', 'absolute').html('❤');
+			$(function() {
+				var winwidth = $(window).width(); //获取浏览器窗口宽度
+				var winheight = $(window).height(); //获取浏览器窗口的高度
+				setInterval(function() {
+					var startleft = Math.random() * winwidth;
+					var endleft = Math.random()*winwidth;
+					var size = xuemin + Math.random() * xuemax;
+					var startopacity = 0.7+Math.random()*0.3
+					var endopatity = 0.3+Math.random()*0.3
+					xue.clone().appendTo('body').css({
+						'left': startleft,
+						'font-size': size,
+						'top': '-55px',
+						'opcity':startopacity,
+						'color':xuecolor
+					}).animate({
+						'left': endleft,
+						'font-size': size,
+						'top':winheight, 
+						'opcity':endopatity,
+						'color':xuecolor
+					},10000,function(){
+							$(this).remove();
+					})
+				}, 250)
+			})
+			
+		</script>
+	</body>
+
+</html>
